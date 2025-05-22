@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Moyor Graphics Portfolio - Exceptional graphic design with PixelLab, Canva, and a holographic cosmic flair.">
+  <meta name="keywords" content="Moyor Graphics, graphic design, PixelLab, Canva, branding, digital art, Nigeria, holographic design">
+  <meta name="author" content="Moyor Graphics">
+  <title>Moyor Graphics | Designing Your Vision </title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/swiper/11.0.5/swiper-bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swiper/11.0.5/swiper-bundle.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;800;900&display=swap');
+
+    :root {
+      --primary-holo: #8B5CF6;
+      --accent-neon: #34D399;
+      --dark-bg: #0A051F;
+      --light-text: #F5F3FF;
+      --glow-holo: rgba(139, 92, 246, 0.9);
+      --glow-neon: rgba(52, 211, 153, 0.8);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Exo 2', sans-serif;
+      background: var(--dark-bg);
+      color: var(--light-text);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    .canvas-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      background: linear-gradient(90deg, rgba(10, 5, 31, 0.95), rgba(139, 92, 246, 0.7));
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 25px var(--glow-holo);
+    }
+
+    .logo-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent-neon);
+      box-shadow: 0 0 20px var(--glow-neon), 0 0 30px var(--glow-holo);
+      position: relative;
+      animation: orbit-glow 10s linear infinite;
+    }
+
+    .logo-img:hover {
+      transform: scale(1.1);
+    }
+
+    @keyframes orbit-glow {
+      0% { box-shadow: 0 0 20px var(--glow-neon), 0 0 30px var(--glow-holo); }
+      50% { box-shadow: 0 0 30px var(--glow-neon), 0 0 40px var(--glow-holo); }
+      100% { box-shadow: 0 0 20px var(--glow-neon), 0 0 30px var(--glow-holo); }
+    }
+
+    .nav-toggle {
+      display: none;
+      position: relative;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: none;
+      z-index: 60;
+      cursor: pointer;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 28px;
+      height: 3px;
+      background: var(--accent-neon);
+      position: absolute;
+      left: 6px;
+      transition: all 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .nav-toggle span:nth-child(1) { top: 12px; }
+    .nav-toggle span:nth-child(2) { top: 18px; }
+    .nav-toggle span:nth-child(3) { top: 24px; }
+    .nav-toggle.active span:nth-child(1) {
+      transform: rotate(45deg);
+      top: 18px;
+    }
+    .nav-toggle.active span:nth-child(2) { opacity: 0; }
+    .nav-toggle.active span:nth-child(3) {
+      transform: rotate(-45deg);
+      top: 18px;
+    }
+
+    .nav-menu a {
+      position: relative;
+      padding: 10px 16px;
+      transition: all 0.4s ease;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--accent-neon);
+      border-radius: 8px;
+    }
+
+    .nav-menu a::before {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary-holo), var(--accent-neon));
+      transition: all 0.4s ease;
+      transform: translateX(-50%);
+    }
+
+    .nav-menu a:hover::before {
+      width: 70%;
+    }
+
+    .nav-menu a:hover {
+      color: var(--light-text);
+      background: rgba(139, 92, 246, 0.3);
+      text-shadow: 0 0 12px var(--glow-neon);
+      transform: translateY(-2px);
+    }
+
+    .section {
+      scroll-margin-top: 90px;
+      position: relative;
+      z-index: 1;
+      padding: clamp(2rem, 6vw, 3rem) 1rem;
+    }
+
+    .card {
+      background: rgba(15, 10, 40, 0.9);
+      border: 1px solid var(--primary-holo);
+      border-radius: 1rem;
+      overflow: hidden;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      box-shadow: 0 0 20px var(--glow-holo);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .card:hover {
+      transform: translateY(-10px) rotate(1deg);
+      box-shadow: 0 0 40px var(--glow-holo), 0 0 60px rgba(52, 211, 153, 0.4);
+    }
+
+    .action-btn {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(45deg, var(--primary-holo), var(--accent-neon));
+      box-shadow: 0 0 20px var(--glow-neon);
+      border-radius: 3rem;
+      padding: 0.75rem 2rem;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #fff;
+      transition: all 0.4s ease;
+    }
+
+    .action-btn:hover {
+      background: linear-gradient(45deg, #7C3AED, #2DD4BF);
+      transform: scale(1.05);
+      box-shadow: 0 0 40px var(--glow-neon);
+    }
+
+    .action-btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: 0.5s;
+    }
+
+    .action-btn:hover::after { left: 100%; }
+
+    .text-glow {
+      text-shadow: 0 0 15px var(--glow-holo), 0 0 25px var(--glow-neon);
+      color: var(--accent-neon);
+    }
+
+    .text-gradient {
+      background: linear-gradient(45deg, var(--primary-holo), var(--accent-neon));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .section h2 {
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .section h2:hover {
+      transform: scale(1.05);
+      text-shadow: 0 0 20px var(--glow-holo);
+      transition: all 0.4s ease;
+    }
+
+    .project-img {
+      width: 100%;
+      height: auto; /* Allow natural height */
+      object-fit: cover;
+      border-radius: 0.75rem 0.75rem 0 0;
+      transition: transform 0.6s ease, filter 0.6s ease;
+    }
+
+    .project-img:hover {
+      transform: scale(1.1);
+      filter: brightness(1.2) saturate(1.3);
+    }
+
+    .about-section {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(52, 211, 153, 0.1));
+      border-radius: 1.5rem;
+      box-shadow: 0 0 40px var(--glow-holo);
+      padding: clamp(2rem, 5vw, 3rem);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, var(--glow-holo), transparent);
+      animation: cosmic-pulse 8s infinite ease-in-out;
+    }
+
+    @keyframes cosmic-pulse {
+      0% { transform: scale(1); opacity: 0.4; }
+      50% { transform: scale(1.5); opacity: 0.2; }
+      100% { transform: scale(1); opacity: 0.4; }
+    }
+
+    .about-img {
+      width: 100%;
+      max-width: 320px;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid var(--accent-neon);
+      box-shadow: 0 0 20px var(--glow-neon);
+      transition: transform 0.5s ease;
+    }
+
+    .about-img:hover {
+      transform: scale(1.05);
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .social-icon {
+      transition: transform 0.4s ease, color 0.4s ease, text-shadow 0.4s ease;
+    }
+
+    .social-icon:hover {
+      transform: scale(1.3) rotate(5deg);
+      color: var(--accent-neon);
+      text-shadow: 0 0 15px var(--glow-neon);
+    }
+
+    .swiper {
+      width: 100%;
+      padding: 2rem 0;
+      perspective: 1000px;
+    }
+
+    .swiper-slide {
+      opacity: 1;
+      transform: rotateY(0deg) scale(1);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .swiper-slide-visible {
+      opacity: 1;
+      transform: rotateY(0deg) scale(1);
+    }
+
+    .testimonial-card {
+      background: rgba(15, 10, 40, 0.9);
+      border: 1px solid var(--primary-holo);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      max-width: 340px;
+      text-align: center;
+      box-shadow: 0 0 20px var(--glow-holo);
+      margin: 0 auto;
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 0 40px var(--glow-holo), 0 0 50px rgba(52, 211, 153, 0.4);
+    }
+
+    .testimonial-img {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 1rem;
+      border: 2px solid var(--accent-neon);
+      box-shadow: 0 0 10px var(--glow-neon);
+    }
+
+    .swiper-button-prev, .swiper-button-next {
+      color: var(--accent-neon);
+      background: rgba(139, 92, 246, 0.3);
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      transition: background 0.3s ease;
+    }
+
+    .swiper-button-prev:hover, .swiper-button-next:hover {
+      background: rgba(139, 92, 246, 0.6);
+    }
+
+    .swiper-pagination-bullet {
+      background: var(--accent-neon);
+      opacity: 0.7;
+    }
+
+    .swiper-pagination-bullet-active {
+      background: var(--primary-holo);
+      opacity: 1;
+    }
+
+    footer {
+      padding: 1.5rem;
+      background: rgba(10, 5, 31, 0.8);
+      border-top: 1px solid var(--glow-holo);
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .aurora-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(139, 92, 246, 0.2), rgba(52, 211, 153, 0.1));
+      animation: aurora 15s ease-in-out infinite;
+      z-index: -1;
+    }
+
+    @keyframes aurora {
+      0% { background-position: 0% 50%; opacity: 0.6; }
+      50% { background-position: 100% 50%; opacity: 0.9; }
+      100% { background-position: 0% 50%; opacity: 0.6; }
+    }
+
+    @media (max-width: 1280px) {
+      .section { padding: clamp(1.5rem, 5vw, 2rem) 1rem; }
+      .portfolio-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+      .nav-menu a { padding: 8px 12px; font-size: 0.9rem; }
+    }
+
+    @media (max-width: 1024px) {
+      .section { padding: clamp(1.25rem, 4vw, 1.5rem) 0.75rem; }
+      .portfolio-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+      .text-5xl { font-size: clamp(2rem, 5vw, 2.5rem); }
+      .about-img { max-width: 280px; height: 280px; }
+      .logo-img { width: 50px; height: 50px; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-toggle { display: block; }
+      .nav-menu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 80%;
+        max-width: 320px;
+        background: rgba(10, 5, 31, 0.95);
+        padding: 2rem 1rem;
+        z-index: 50;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        box-shadow: -4px 0 20px var(--glow-holo);
+        transition: transform 0.4s ease;
+      }
+      .nav-menu.active {
+        transform: translateX(0); /* Correctly show menu */
+      }
+      .nav-menu a { font-size: 1rem; padding: 0.75rem; margin: 0.5rem 0; }
+      .portfolio-grid { grid-template-columns: 1fr; gap: 1rem; }
+      .text-5xl { font-size: clamp(1.75rem, 4.5vw, 2rem); }
+      .action-btn { padding: 0.5rem 1.5rem; font-size: 0.9rem; }
+      .about-section .grid { grid-template-columns: 1fr; }
+      .about-img { max-width: 240px; height: 240px; margin: 0 auto; }
+      .logo-img { width: 45px; height: 45px; }
+    }
+
+    @media (max-width: 480px) {
+      .section { padding: clamp(1rem, 3vw, 1.25rem) 0.5rem; }
+      .text-5xl { font-size: clamp(1.5rem, 4vw, 1.75rem); }
+      .portfolio-grid { gap: 0.75rem; }
+      .action-btn { padding: 0.5rem 1rem; font-size: 0.8rem; }
+      .testimonial-card { max-width: 300px; padding: 1.25rem; }
+      .nav-menu a { font-size: 0.9rem; }
+      .swiper-button-prev, .swiper-button-next { width: 32px; height: 32px; }
+      .about-img { max-width: 200px; height: 200px; }
+      .logo-img { width: 40px; height: 40px; }
+    }
+
+    @media (min-width: 769px) {
+      .nav-toggle { display: none; }
+      .nav-menu { display: flex; gap: clamp(1rem, 2vw, 1.5rem); }
+    }
+  </style>
+</head>
+<body>
+  <div class="aurora-bg"></div>
+  <canvas id="bgCanvas" class="canvas-bg"></canvas>
+
+  <header class="py-3">
+    <nav class="container mx-auto px-4 flex items-center justify-between">
+      <a href="#" class="flex items-center">
+        <img src="https://s3.us-east-1.amazonaws.com/web.develop/logo.jpg" alt="Moyor Graphics Logo" class="logo-img">
+      </a>
+      <button class="nav-toggle md:hidden focus:outline-none" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-menu hidden md:flex items-center">
+        <li><a href="#home" class="text-gradient">Home</a></li>
+        <li><a href="#about" class="text-gradient">About</a></li>
+        <li><a href="#portfolio" class="text-gradient">Portfolio</a></li>
+        <li><a href="#services" class="text-gradient">Services</a></li>
+        <li><a href="#testimonials" class="text-gradient">Testimonials</a></li>
+        <li><a href="#contact" class="text-gradient">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="home" class="section min-h-screen flex items-center justify-center relative overflow-hidden">
+    <div id="heroCanvas" class="absolute inset-0 z-0"></div>
+    <div class="absolute inset-0 bg-[var(--dark-bg)]/50 z-10"></div>
+    <div class="container mx-auto px-4 text-center relative z-20">
+      <h1 class="text-5xl md:text-6xl font-extrabold text-glow mb-4 animate-pulse">Moyor Graphics</h1>
+      <p class="text-lg md:text-xl text-gradient mb-6 max-w-xl mx-auto">Designing Your Vision.</p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="#portfolio" class="action-btn">Explore Portfolio</a>
+        <a href="#contact" class="action-btn">Hire Me</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section about-section">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-glow mb-10 text-center">About Moyor Graphics</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div class="relative flex justify-center">
+          <img src="https://s3.us-east-1.amazonaws.com/web.develop/moyor.jpg" alt="Moyor" class="about-img">
+        </div>
+        <div class="text-gradient space-y-4">
+          <p class="text-base md:text-lg leading-relaxed">Moyor Graphics is a visionary design studio led by Moyor, a creative genius with over a decade of experience using tools like <span class="font-semibold">PixelLab</span> and <span class="font-semibold">Canva</span>.</p>
+          <p class="text-base md:text-lg leading-relaxed">We specialize in crafting breathtaking branding, social media visuals, and digital art that transcend the ordinary, captivating audiences worldwide.</p>
+          <p class="text-base md:text-lg leading-relaxed">Based in Nigeria, Moyor Graphics transforms ideas into holographic masterpieces with a cosmic flair.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio" class="section">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-glow mb-10 text-center">Portfolio Showcase</h2>
+      <div class="portfolio-grid">
+        <div class="card">
+          <img src="https://s3.us-east-1.amazonaws.com/web.develop/work2.jpg" alt="Yisha's Fragnance" class="project-img">
+          <div class="p-5">
+            <h3 class="text-lg font-semibold text-gradient mb-2">Yisha's Fragnance</h3>
+            <p class="text-gray-300 text-sm">Built for an outerspace brand that deals in perfume, deodorants, and luxury sprays.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://s3.us-east-1.amazonaws.com/web.develop/work3.jpg" alt="Birthday Flier" class="project-img">
+          <div class="p-5">
+            <h3 class="text-lg font-semibold text-gradient mb-2">Birthday Flier</h3>
+            <p class="text-gray-300 text-sm">A Birthday Flier for Godwin Goodluck's birthday on the 20th of February.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://s3.us-east-1.amazonaws.com/web.develop/work4.jpg" alt="TS Luxury Clothing" class="project-img">
+          <div class="p-5">
+            <h3 class="text-lg font-semibold text-gradient mb-2">TS Luxury Clothing</h3>
+            <p class="text-gray-300 text-sm">TS Luxury is a fashion design brand that offers services related to design.</p>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://s3.us-east-1.amazonaws.com/web.develop/work1.jpg" alt="Personal Branding Flier" class="project-img">
+          <div class="p-5">
+            <h3 class="text-lg font-semibold text-gradient mb-2">Personal Branding Flier</h3>
+            <p class="text-gray-300 text-sm">Moyor has designed an exceptional flier for her personal brand (Moyor Graphics).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="section">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-glow mb-10 text-center">Design Services</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="card p-5 text-center">
+          <i class="fas fa-paint-brush text-3xl text-gradient mb-3"></i>
+          <h3 class="text-lg font-semibold text-gradient mb-2">Branding</h3>
+          <p class="text-gray-300 text-sm">Logos, business cards, and brand kits with a holographic touch.</p>
+        </div>
+        <div class="card p-5 text-center">
+          <i class="fas fa-image text-3xl text-gradient mb-3"></i>
+          <h3 class="text-lg font-semibold text-gradient mb-2">Social Media Graphics</h3>
+          <p class="text-gray-300 text-sm">Engaging visuals for Instagram, TikTok, and more.</p>
+        </div>
+        <div class="card p-5 text-center">
+          <i class="fas fa-file-image text-3xl text-gradient mb-3"></i>
+          <h3 class="text-lg font-semibold text-gradient mb-2">Digital Designs</h3>
+          <p class="text-gray-300 text-sm">Banners, flyers, and digital ads that mesmerize.</p>
+        </div>
+        <div class="card p-5 text-center">
+          <i class="fas fa-pen-nib text-3xl text-gradient mb-3"></i>
+          <h3 class="text-lg font-semibold text-gradient mb-2">Custom Graphics</h3>
+          <p class="text-gray-300 text-sm">Tailored designs to bring your vision to life.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials" class="section">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-glow mb-10 text-center">Client Testimonials</h2>
+      <div class="swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <img src="https://s3.us-east-1.amazonaws.com/web.develop/Grace.jpg" alt="Client 1" class="testimonial-img">
+              <p class="text-gray-300 text-sm mb-3">"Moyor’s designs took our social media to the next level!"</p>
+              <p class="text-gradient font-semibold text-sm">Grace , Fashion Brand Owner</p>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <img src="https://s3.us-east-1.amazonaws.com/web.develop/pm_1738931741635_cmp.jpg" alt="Client 2" class="testimonial-img">
+              <p class="text-gray-300 text-sm mb-3">"The logo design was sleek and delivered super fast!"</p>
+              <p class="text-gradient font-semibold text-sm">Sisco Ask, Startup Founder</p>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="testimonial-card">
+              <img src="https://s3.us-east-1.amazonaws.com/web.develop/Miss+Aminat.jpg" alt="Client 3" class="testimonial-img">
+              <p class="text-gray-300 text-sm mb-3">"Moyor’s creativity made our event visuals shine!"</p>
+              <p class="text-gradient font-semibold text-sm">Miss Aminat, Event Planner</p>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="container mx-auto px-4">
+      <h2 class="text-3xl md:text-4xl font-bold text-glow mb-10 text-center">Let’s Create Something Extraordinary</h2>
+      <p class="text-base md:text-lg text-gradient text-center mb-6 max-w-lg mx-auto">Contact Moyor Graphics for your next design project.</p>
+      <div class="flex flex-wrap justify-center gap-8">
+        <a href="https://wa.me/+234 814 670 6932" target="_blank" class="social-icon text-2xl md:text-3xl text-gradient" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="mailto:moyorgraphics@gmail.com" class="social-icon text-2xl md:text-3xl text-gradient" aria-label="Gmail"><i class="fas fa-envelope"></i></a>
+        <a href="tel:+234 814 670 6932" class="social-icon text-2xl md:text-3xl text-gradient" aria-label="Phone"><i class="fas fa-phone"></i></a>
+        <a href="https://tiktok.com/@moyorgraphics" target="_blank" class="social-icon text-2xl md:text-3xl text-gradient" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="https://instagram.com/moyorgraphics" target="_blank" class="social-icon text-2xl md:text-3xl text-gradient" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="text-gradient">© <span id="footer-year"></span> Moyor Graphics. Built by Sisco Ask.</p>
+  </footer>
+
+  <script>
+    // Navigation Toggle
+    const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    navToggle.addEventListener('click', () => {
+      navToggle.classList.toggle('active');
+      navMenu.classList.toggle('active');
+    });
+
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+        if (window.innerWidth <= 768) {
+          navToggle.classList.remove('active');
+          navMenu.classList.remove('active');
+        }
+      });
+    });
+
+    // Dynamic Year
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+    // Enhanced Background Animation with Aurora
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const particles = [];
+    class Particle {
+      constructor() { this.reset(); }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.vx = (Math.random() - 0.5) * 2;
+        this.vy = (Math.random() - 0.5) * 2;
+        this.size = Math.random() * 5 + 2;
+        this.opacity = Math.random() * 0.6 + 0.4;
+        this.color = Math.random() > 0.5 ? '#8B5CF6' : '#34D399';
+        this.glow = Math.random() * 20 + 15;
+        this.twinkleSpeed = Math.random() * 0.05 + 0.02;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.opacity = 0.6 + Math.sin(Date.now() * this.twinkleSpeed) * 0.3;
+        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color + `${Math.floor(this.opacity * 255).toString(16).padStart(2, '0')}`;
+        ctx.shadowColor = this.color;
+        ctx.shadowBlur = this.glow;
+        ctx.fill();
+      }
+    }
+    function initParticles() {
+      particles.length = 0;
+      for (let i = 0; i < Math.min(150, Math.floor(window.innerWidth / 10)); i++) {
+        particles.push(new Particle());
+      }
+    }
+    initParticles();
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => { p.update(); p.draw(); });
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Hero 3D Animation (Rotating Torus with Glow)
+    const heroCanvas = document.getElementById('heroCanvas');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas: heroCanvas, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.position.z = 6;
+
+    const torusGroup = new THREE.Group();
+    const torusCount = 3;
+    for (let i = 0; i < torusCount; i++) {
+      const geometry = new THREE.TorusGeometry(1 + i * 0.5, 0.1, 16, 100);
+      const material = new THREE.MeshBasicMaterial({ color: i % 2 ? 0x8B5CF6 : 0x34D399, wireframe: true });
+      const torus = new THREE.Mesh(geometry, material);
+      torus.rotation.x = Math.PI / 2;
+      torusGroup.add(torus);
+    }
+    scene.add(torusGroup);
+
+    function animateHero() {
+      torusGroup.rotation.y += 0.01;
+      torusGroup.children.forEach((torus, i) => {
+        torus.rotation.z += 0.005 * (i + 1);
+      });
+      renderer.render(scene, camera);
+      requestAnimationFrame(animateHero);
+    }
+    animateHero();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // Enhanced Swiper for Testimonials with 3D Flip Effect
+    function initializeSwiper() {
+      if (typeof Swiper === 'undefined') {
+        console.error('Swiper library failed to load. Displaying testimonials without slider.');
+        document.querySelectorAll('.swiper-slide').forEach(slide => {
+          slide.style.opacity = '1';
+          slide.style.transform = 'rotateY(0deg) scale(1)';
+        });
+        return;
+      }
+
+      const swiper = new Swiper('.swiper', {
+        slidesPerView: 1,
+        spaceBetween: 20,
+        loop: true,
+        autoplay: { delay: 5000, disableOnInteraction: false },
+        pagination: { el: '.swiper-pagination', clickable: true },
+        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
+        effect: 'flip',
+        flipEffect: { slideShadows: false },
+        speed: 1000,
+        breakpoints: {
+          640: { slidesPerView: 2, spaceBetween: 15 },
+          1024: { slidesPerView: 3, spaceBetween: 20 }
+        },
+        on: {
+          init: function () {
+            document.querySelectorAll('.swiper-slide').forEach(slide => {
+              slide.classList.add('swiper-slide-visible');
+            });
+          },
+          slideChangeTransitionStart: function () {
+            document.querySelectorAll('.swiper-slide').forEach(slide => {
+              slide.classList.remove('swiper-slide-visible');
+            });
+          },
+          slideChangeTransitionEnd: function () {
+            document.querySelectorAll('.swiper-slide-active').forEach(slide => {
+              slide.classList.add('swiper-slide-visible');
+            });
+            document.querySelectorAll('.swiper-slide-next').forEach(slide => {
+              slide.classList.add('swiper-slide-visible');
+            });
+            document.querySelectorAll('.swiper-slide-prev').forEach(slide => {
+              slide.classList.add('swiper-slide-visible');
+            });
+          }
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', initializeSwiper);
+    window.onload = initializeSwiper;
+
+    // GSAP Animations
+    window.addEventListener('load', () => {
+      gsap.registerPlugin(ScrollTrigger);
+      gsap.from('.animate-pulse', { opacity: 0, y: 50, duration: 1.5, ease: 'power4.out' });
+      gsap.utils.toArray('.section').forEach(section => {
+        gsap.from(section.children, {
+          opacity: 0,
+          y: 30,
+          duration: 1.2,
+          stagger: 0.2,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: section, start: 'top 85%' }
+        });
+      });
+      gsap.from('.portfolio-grid .card', {
+        opacity: 0,
+        scale: 0.9,
+        duration: 1,
+        stagger: 0.15,
+        ease: 'elastic.out(1, 0.5)',
+        scrollTrigger: { trigger: '.portfolio-grid', start: 'top 85%' }
+      });
+      gsap.from('.testimonial-card', {
+        opacity: 0,
+        y: 20,
+        duration: 1,
+        stagger: 0.2,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: '.swiper', start: 'top 85%' }
+      });
+    });
+  </script>
+</body>
+</html>
