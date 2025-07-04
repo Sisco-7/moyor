@@ -1,830 +1,850 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Moyor Graphics Portfolio - Exceptional graphic design with PixelLab, Canva, and a holographic cosmic flair.">
-  <meta name="keywords" content="Moyor Graphics, graphic design, PixelLab, Canva, branding, digital art, Nigeria, holographic design">
-  <meta name="author" content="Moyor Graphics">
-  <title>Moyor Graphics | Designing Your Vision </title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/swiper/11.0.5/swiper-bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swiper/11.0.5/swiper-bundle.min.css">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;800;900&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Moyor Graphics Portfolio - Exceptional graphic design with PixelLab, Canva, and a holographic cosmic flair.">
+    <meta name="keywords" content="Moyor Graphics, graphic design, PixelLab, Canva, branding, digital art, Nigeria, holographic design">
+    <meta name="author" content="Moyor Graphics">
+    <title>Moyor Graphics | Designing Your Vision</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #8B5CF6; /* Purple holographic theme */
+            --secondary: #D8B4FE; /* Lighter purple accent */
+            --accent: #34D399; /* Neon green for contrast */
+            --background: #0F172A; /* Deep space background */
+            --text-light: #F8FAFC;
+            --text-dark: #1E3A8A;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-hover: rgba(255, 255, 255, 0.2);
+            --shadow: rgba(0, 0, 0, 0.3);
+            --glow: rgba(139, 92, 246, 0.6); /* Purple glow */
+        }
 
-    :root {
-      --primary-holo: #8B5CF6;
-      --accent-neon: #34D399;
-      --dark-bg: #0A051F;
-      --light-text: #F5F3FF;
-      --glow-holo: rgba(139, 92, 246, 0.9);
-      --glow-neon: rgba(52, 211, 153, 0.8);
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+        html, body {
+            width: 100%;
+            height: 100%;
+            font-family: 'Poppins', 'Inter', sans-serif;
+            background: var(--background);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
 
-    body {
-      font-family: 'Exo 2', sans-serif;
-      background: var(--dark-bg);
-      color: var(--light-text);
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
+        .tech-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: radial-gradient(circle at center, rgba(139, 92, 246, 0.15) 0%, var(--background) 70%);
+            overflow: hidden;
+        }
 
-    .canvas-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      opacity: 0.7;
-      pointer-events: none;
-    }
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
 
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 100;
-      background: linear-gradient(90deg, rgba(10, 5, 31, 0.95), rgba(139, 92, 246, 0.7));
-      backdrop-filter: blur(12px);
-      box-shadow: 0 4px 25px var(--glow-holo);
-    }
+        .particle {
+            position: absolute;
+            background: var(--text-light);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: float 15s infinite linear;
+        }
 
-    .logo-img {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--accent-neon);
-      box-shadow: 0 0 20px var(--glow-neon), 0 0 30px var(--glow-holo);
-      position: relative;
-      animation: orbit-glow 10s linear infinite;
-    }
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 0.5; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-100vh); opacity: 0.5; }
+        }
 
-    .logo-img:hover {
-      transform: scale(1.1);
-    }
+        .main-container {
+            position: relative;
+            z-index: 1;
+            padding-bottom: 80px;
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
 
-    @keyframes orbit-glow {
-      0% { box-shadow: 0 0 20px var(--glow-neon), 0 0 30px var(--glow-holo); }
-      50% { box-shadow: 0 0 30px var(--glow-neon), 0 0 40px var(--glow-holo); }
-      100% { box-shadow: 0 0 20px var(--glow-neon), 0 0 30px var(--glow-holo); }
-    }
+        .nav-bar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--secondary);
+            border-radius: 50px;
+            padding: 12px 30px;
+            z-index: 1000;
+            display: flex;
+            gap: 25px;
+            box-shadow: 0 8px 25px var(--shadow);
+        }
 
-    .nav-toggle {
-      display: none;
-      position: relative;
-      width: 40px;
-      height: 40px;
-      background: transparent;
-      border: none;
-      z-index: 60;
-      cursor: pointer;
-    }
+        .nav-item {
+            padding:  10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            font-size: 1em;
+            font-weight: 500;
+            color: var(--text-light);
+            text-transform: uppercase;
+            text-decoration: none;
+        }
 
-    .nav-toggle span {
-      display: block;
-      width: 28px;
-      height: 3px;
-      background: var(--accent-neon);
-      position: absolute;
-      left: 6px;
-      transition: all 0.3s ease;
-      border-radius: 2px;
-    }
+        .nav-item:hover {
+            background: var(--glass-hover);
+            transform: scale(1.05);
+        }
 
-    .nav-toggle span:nth-child(1) { top: 12px; }
-    .nav-toggle span:nth-child(2) { top: 18px; }
-    .nav-toggle span:nth-child(3) { top: 24px; }
-    .nav-toggle.active span:nth-child(1) {
-      transform: rotate(45deg);
-      top: 18px;
-    }
-    .nav-toggle.active span:nth-child(2) { opacity: 0; }
-    .nav-toggle.active span:nth-child(3) {
-      transform: rotate(-45deg);
-      top: 18px;
-    }
+        .nav-item.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            box-shadow: 0 4px 15px var(--glow);
+        }
 
-    .nav-menu a {
-      position: relative;
-      padding: 10px 16px;
-      transition: all 0.4s ease;
-      font-weight: 600;
-      font-size: 0.95rem;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: var(--accent-neon);
-      border-radius: 8px;
-    }
+        .hero {
+            text-align: center;
+            padding: 120px 20px 60px;
+            position: relative;
+        }
 
-    .nav-menu a::before {
-      content: '';
-      position: absolute;
-      bottom: 2px;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--primary-holo), var(--accent-neon));
-      transition: all 0.4s ease;
-      transform: translateX(-50%);
-    }
+        .hero-title {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--text-light), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
 
-    .nav-menu a:hover::before {
-      width: 70%;
-    }
+        @keyframes titleGlow {
+            0% { filter: drop-shadow(0 0 10px var(--glow)); }
+            100% { filter: drop-shadow(0 0 25px rgba(139, 92, 246, 0.9)); }
+        }
 
-    .nav-menu a:hover {
-      color: var(--light-text);
-      background: rgba(139, 92, 246, 0.3);
-      text-shadow: 0 0 12px var(--glow-neon);
-      transform: translateY(-2px);
-    }
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            opacity: 0.9;
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
 
-    .section {
-      scroll-margin-top: 90px;
-      position: relative;
-      z-index: 1;
-      padding: clamp(2rem, 6vw, 3rem) 1rem;
-    }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
 
-    .card {
-      background: rgba(15, 10, 40, 0.9);
-      border: 1px solid var(--primary-holo);
-      border-radius: 1rem;
-      overflow: hidden;
-      transition: transform 0.5s ease, box-shadow 0.5s ease;
-      box-shadow: 0 0 20px var(--glow-holo);
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
+        .section {
+            margin-bottom: 80px;
+        }
 
-    .card:hover {
-      transform: translateY(-10px) rotate(1deg);
-      box-shadow: 0 0 40px var(--glow-holo), 0 0 60px rgba(52, 211, 153, 0.4);
-    }
+        .section-title {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: var(--secondary);
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+        }
 
-    .action-btn {
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(45deg, var(--primary-holo), var(--accent-neon));
-      box-shadow: 0 0 20px var(--glow-neon);
-      border-radius: 3rem;
-      padding: 0.75rem 2rem;
-      font-weight: 600;
-      font-size: 1rem;
-      color: #fff;
-      transition: all 0.4s ease;
-    }
+        .section-title::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
 
-    .action-btn:hover {
-      background: linear-gradient(45deg, #7C3AED, #2DD4BF);
-      transform: scale(1.05);
-      box-shadow: 0 0 40px var(--glow-neon);
-    }
+        .about-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--secondary);
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
 
-    .action-btn::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: 0.5s;
-    }
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(52, 211, 153, 0.1));
+            z-index: -1;
+        }
 
-    .action-btn:hover::after { left: 100%; }
+        .about-text {
+            color: var(--text-light);
+            font-size: 1.1em;
+            line-height: 1.8;
+        }
 
-    .text-glow {
-      text-shadow: 0 0 15px var(--glow-holo), 0 0 25px var(--glow-neon);
-      color: var(--accent-neon);
-    }
+        .highlight-text {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-    .text-gradient {
-      background: linear-gradient(45deg, var(--primary-holo), var(--accent-neon));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
+        .services-grid, .projects-grid, .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
 
-    .section h2 {
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-    }
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--secondary);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 8px 30px var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
 
-    .section h2:hover {
-      transform: scale(1.05);
-      text-shadow: 0 0 20px var(--glow-holo);
-      transition: all 0.4s ease;
-    }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
 
-    .project-img {
-      width: 100%;
-      height: auto; /* Allow natural height */
-      object-fit: cover;
-      border-radius: 0.75rem 0.75rem 0 0;
-      transition: transform 0.6s ease, filter 0.6s ease;
-    }
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
 
-    .project-img:hover {
-      transform: scale(1.1);
-      filter: brightness(1.2) saturate(1.3);
-    }
+        .card:hover::before {
+            transform: scaleX(1);
+        }
 
-    .about-section {
-      background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(52, 211, 153, 0.1));
-      border-radius: 1.5rem;
-      box-shadow: 0 0 40px var(--glow-holo);
-      padding: clamp(2rem, 5vw, 3rem);
-      position: relative;
-      overflow: hidden;
-    }
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
 
-    .about-section::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, var(--glow-holo), transparent);
-      animation: cosmic-pulse 8s infinite ease-in-out;
-    }
+        .card-icon {
+            font-size: 2.2em;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px var(--glow);
+            animation: pulse 2s ease-in-out infinite;
+        }
 
-    @keyframes cosmic-pulse {
-      0% { transform: scale(1); opacity: 0.4; }
-      50% { transform: scale(1.5); opacity: 0.2; }
-      100% { transform: scale(1); opacity: 0.4; }
-    }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
 
-    .about-img {
-      width: 100%;
-      max-width: 320px;
-      height: 320px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 3px solid var(--accent-neon);
-      box-shadow: 0 0 20px var(--glow-neon);
-      transition: transform 0.5s ease;
-    }
+        .card-title {
+            font-size: 1.6em;
+            font-weight: 600;
+            color: var(--text-light);
+        }
 
-    .about-img:hover {
-      transform: scale(1.05);
-    }
+        .card-description {
+            color: var(--text-light);
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
 
-    .portfolio-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
+        .card-content {
+            margin-top: 15px;
+        }
 
-    .social-icon {
-      transition: transform 0.4s ease, color 0.4s ease, text-shadow 0.4s ease;
-    }
+        .project-img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 0.75rem;
+            margin-bottom: 15px;
+            transition: transform 0.6s ease, filter 0.6s ease;
+            border: 2px solid var(--secondary);
+        }
 
-    .social-icon:hover {
-      transform: scale(1.3) rotate(5deg);
-      color: var(--accent-neon);
-      text-shadow: 0 0 15px var(--glow-neon);
-    }
+        .card:hover .project-img {
+            transform: scale(1.05);
+            filter: brightness(1.2) saturate(1.3);
+        }
 
-    .swiper {
-      width: 100%;
-      padding: 2rem 0;
-      perspective: 1000px;
-    }
+        .testimonials-container {
+            position: relative;
+            overflow: hidden;
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
-    .swiper-slide {
-      opacity: 1;
-      transform: rotateY(0deg) scale(1);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
+        .testimonials-slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
 
-    .swiper-slide-visible {
-      opacity: 1;
-      transform: rotateY(0deg) scale(1);
-    }
+        .testimonial-card {
+            flex: 0 0 100%;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--secondary);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            opacity: 0;
+            animation: slideIn 0.5s forwards;
+        }
 
-    .testimonial-card {
-      background: rgba(15, 10, 40, 0.9);
-      border: 1px solid var(--primary-holo);
-      border-radius: 1rem;
-      padding: 1.5rem;
-      max-width: 340px;
-      text-align: center;
-      box-shadow: 0 0 20px var(--glow-holo);
-      margin: 0 auto;
-      transition: transform 0.5s ease, box-shadow 0.5s ease;
-    }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
 
-    .testimonial-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 0 40px var(--glow-holo), 0 0 50px rgba(52, 211, 153, 0.4);
-    }
+        .testimonial-text {
+            font-style: italic;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
 
-    .testimonial-img {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-      border: 2px solid var(--accent-neon);
-      box-shadow: 0 0 10px var(--glow-neon);
-    }
+        .testimonial-author {
+            font-weight: 600;
+            color: var(--secondary);
+        }
 
-    .swiper-button-prev, .swiper-button-next {
-      color: var(--accent-neon);
-      background: rgba(139, 92, 246, 0.3);
-      border-radius: 50%;
-      width: 36px;
-      height: 36px;
-      transition: background 0.3s ease;
-    }
+        .testimonial-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
 
-    .swiper-button-prev:hover, .swiper-button-next:hover {
-      background: rgba(139, 92, 246, 0.6);
-    }
+        .testimonial-btn {
+            background: var(--glass);
+            border: 2px solid var(--secondary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-    .swiper-pagination-bullet {
-      background: var(--accent-neon);
-      opacity: 0.7;
-    }
+        .testimonial-btn:hover {
+            background: var(--secondary);
+            color: var(--text-light);
+        }
 
-    .swiper-pagination-bullet-active {
-      background: var(--primary-holo);
-      opacity: 1;
-    }
+        .contact-section {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 2px solid var(--secondary);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 8px 30px var(--shadow);
+        }
 
-    footer {
-      padding: 1.5rem;
-      background: rgba(10, 5, 31, 0.8);
-      border-top: 1px solid var(--glow-holo);
-      text-align: center;
-      font-size: 0.9rem;
-    }
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
 
-    .aurora-bg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, rgba(139, 92, 246, 0.2), rgba(52, 211, 153, 0.1));
-      animation: aurora 15s ease-in-out infinite;
-      z-index: -1;
-    }
+        .contact-input, .contact-textarea {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid var(--secondary);
+            border-radius: 12px;
+            padding: 15px;
+            color: var(--text-light);
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
 
-    @keyframes aurora {
-      0% { background-position: 0% 50%; opacity: 0.6; }
-      50% { background-position: 100% 50%; opacity: 0.9; }
-      100% { background-position: 0% 50%; opacity: 0.6; }
-    }
+        .contact-input:focus, .contact-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 10px var(--glow);
+        }
 
-    @media (max-width: 1280px) {
-      .section { padding: clamp(1.5rem, 5vw, 2rem) 1rem; }
-      .portfolio-grid { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
-      .nav-menu a { padding: 8px 12px; font-size: 0.9rem; }
-    }
+        .contact-textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
 
-    @media (max-width: 1024px) {
-      .section { padding: clamp(1.25rem, 4vw, 1.5rem) 0.75rem; }
-      .portfolio-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
-      .text-5xl { font-size: clamp(2rem, 5vw, 2.5rem); }
-      .about-img { max-width: 280px; height: 280px; }
-      .logo-img { width: 50px; height: 50px; }
-    }
+        .btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 4px 15px var(--shadow);
+        }
 
-    @media (max-width: 768px) {
-      .nav-toggle { display: block; }
-      .nav-menu {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        height: 100vh;
-        width: 80%;
-        max-width: 320px;
-        background: rgba(10, 5, 31, 0.95);
-        padding: 2rem 1rem;
-        z-index: 50;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        box-shadow: -4px 0 20px var(--glow-holo);
-        transition: transform 0.4s ease;
-      }
-      .nav-menu.active {
-        transform: translateX(0); /* Correctly show menu */
-      }
-      .nav-menu a { font-size: 1rem; padding: 0.75rem; margin: 0.5rem 0; }
-      .portfolio-grid { grid-template-columns: 1fr; gap: 1rem; }
-      .text-5xl { font-size: clamp(1.75rem, 4.5vw, 2rem); }
-      .action-btn { padding: 0.5rem 1.5rem; font-size: 0.9rem; }
-      .about-section .grid { grid-template-columns: 1fr; }
-      .about-img { max-width: 240px; height: 240px; margin: 0 auto; }
-      .logo-img { width: 45px; height: 45px; }
-    }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px var(--glow);
+        }
 
-    @media (max-width: 480px) {
-      .section { padding: clamp(1rem, 3vw, 1.25rem) 0.5rem; }
-      .text-5xl { font-size: clamp(1.5rem, 4vw, 1.75rem); }
-      .portfolio-grid { gap: 0.75rem; }
-      .action-btn { padding: 0.5rem 1rem; font-size: 0.8rem; }
-      .testimonial-card { max-width: 300px; padding: 1.25rem; }
-      .nav-menu a { font-size: 0.9rem; }
-      .swiper-button-prev, .swiper-button-next { width: 32px; height: 32px; }
-      .about-img { max-width: 200px; height: 200px; }
-      .logo-img { width: 40px; height: 40px; }
-    }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
 
-    @media (min-width: 769px) {
-      .nav-toggle { display: none; }
-      .nav-menu { display: flex; gap: clamp(1rem, 2vw, 1.5rem); }
-    }
-  </style>
+        .social-link {
+            font-size: 2em;
+            color: var(--text-light);
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--secondary);
+            transform: scale(1.2);
+        }
+
+        footer {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border-top: 2px solid var(--secondary);
+            padding: 20px;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.95em;
+            margin-top: auto;
+        }
+
+        footer a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--text-light);
+        }
+
+        @media (max-width: 1024px) {
+            .nav-bar {
+                gap: 15px;
+                padding: 10px 20px;
+            }
+
+            .nav-item {
+                font-size: 0.9em;
+                padding: 8px 15px;
+            }
+
+            .hero {
+                padding: 100px 15px 50px;
+            }
+
+            .hero-title {
+                font-size: clamp(2.5rem, 6vw, 4rem);
+            }
+
+            .services-grid, .projects-grid, .testimonials-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-bar {
+                position: fixed;
+                bottom: 15px;
+                top: auto;
+                left: 15px;
+                right: 15px;
+                transform: none;
+                justify-content: space-around;
+                gap: 10px;
+                padding: 8px;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+            }
+
+            .nav-item {
+                font-size: 0.85em;
+                padding: 8px 12px;
+            }
+
+            .hero {
+                padding: 80px 15px 40px;
+            }
+
+            .hero-title {
+                font-size: clamp(2rem, 5vw, 3.5rem);
+            }
+
+            .section-title {
+                font-size: 2em;
+            }
+
+            .contact-section {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .services-grid, .projects-grid, .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card, .about-card, .testimonial-card {
+                padding: 20px;
+            }
+
+            .card-title {
+                font-size: 1.4em;
+            }
+
+            .btn {
+                padding: 12px 20px;
+                font-size: 0.9em;
+            }
+
+            .social-link {
+                font-size: 1.8em;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+    </style>
 </head>
 <body>
-  <div class="aurora-bg"></div>
-  <canvas id="bgCanvas" class="canvas-bg"></canvas>
+    <div class="tech-background">
+        <div class="particles" id="particles"></div>
+    </div>
 
-  <header class="py-3">
-    <nav class="container mx-auto px-4 flex items-center justify-between">
-      <a href="#" class="flex items-center">
-        <img src="https://s3.us-east-1.amazonaws.com/web.develop/logo.jpg" alt="Moyor Graphics Logo" class="logo-img">
-      </a>
-      <button class="nav-toggle md:hidden focus:outline-none" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <ul class="nav-menu hidden md:flex items-center">
-        <li><a href="#home" class="text-gradient">Home</a></li>
-        <li><a href="#about" class="text-gradient">About</a></li>
-        <li><a href="#portfolio" class="text-gradient">Portfolio</a></li>
-        <li><a href="#services" class="text-gradient">Services</a></li>
-        <li><a href="#testimonials" class="text-gradient">Testimonials</a></li>
-        <li><a href="#contact" class="text-gradient">Contact</a></li>
-      </ul>
+    <nav class="nav-bar">
+        <div class="nav-item active" data-section="home">Home</div>
+        <div class="nav-item" data-section="about">About</div>
+        <div class="nav-item" data-section="services">Services</div>
+        <div class="nav-item" data-section="portfolio">Portfolio</div>
+        <div class="nav-item" data-section="testimonials">Testimonials</div>
+        <div class="nav-item" data-section="contact">Contact</div>
     </nav>
-  </header>
 
-  <section id="home" class="section min-h-screen flex items-center justify-center relative overflow-hidden">
-    <div id="heroCanvas" class="absolute inset-0 z-0"></div>
-    <div class="absolute inset-0 bg-[var(--dark-bg)]/50 z-10"></div>
-    <div class="container mx-auto px-4 text-center relative z-20">
-      <h1 class="text-5xl md:text-6xl font-extrabold text-glow mb-4 animate-pulse">Moyor Graphics</h1>
-      <p class="text-lg md:text-xl text-gradient mb-6 max-w-xl mx-auto">Designing Your Vision.</p>
-      <div class="flex flex-wrap justify-center gap-4">
-        <a href="#portfolio" class="action-btn">Explore Portfolio</a>
-        <a href="#contact" class="action-btn">Hire Me</a>
-      </div>
+    <div class="main-container">
+        <section class="hero">
+            <h1 class="hero-title">Moyor Graphics</h1>
+            <p class="hero-subtitle">Designing Your Vision</p>
+        </section>
+
+        <div class="container">
+            <section class="section" id="about">
+                <h2 class="section-title">About Moyor Graphics</h2>
+                <div class="about-card fade-in-up">
+                    <div class="card-header">
+                        <div class="card-icon"><i class="fas fa-user-astronaut"></i></div>
+                        <h3 class="card-title">Moyor Graphics</h3>
+                    </div>
+                    <p class="about-text">
+                        Moyor Graphics is a visionary design studio led by Moyor, a creative genius with over a decade of experience using tools like <span class="highlight-text">PixelLab</span> and <span class="highlight-text">Canva</span>. We specialize in crafting breathtaking <span class="highlight-text">branding, social media visuals, and digital art</span> that transcend the ordinary, captivating audiences worldwide. Based in Nigeria, Moyor Graphics transforms ideas into <span class="highlight-text">holographic masterpieces</span> with a cosmic flair.
+                    </p>
+                </div>
+            </section>
+
+            <section class="section" id="services">
+                <h2 class="section-title">Design Services</h2>
+                <div class="services-grid">
+                    <div class="card fade-in-up">
+                        <div class="card-header">
+                            <div class="card-icon"><i class="fas fa-paint-brush"></i></div>
+                            <h3 class="card-title">Branding</h3>
+                        </div>
+                        <div class="card-content">
+                            <p class="card-description">Logos, business cards, and brand kits with a holographic touch.</p>
+                        </div>
+                    </div>
+                    <div class="card fade-in-up">
+                        <div class="card-header">
+                            <div class="card-icon"><i class="fas fa-image"></i></div>
+                            <h3 class="card-title">Social Media Graphics</h3>
+                        </div>
+                        <div class="card-content">
+                            <p class="card-description">Engaging visuals for Instagram, TikTok, and more.</p>
+                        </div>
+                    </div>
+                    <div class="card fade-in-up">
+                        <div class="card-header">
+                            <div class="card-icon"><i class="fas fa-file-image"></i></div>
+                            <h3 class="card-title">Digital Designs</h3>
+                        </div>
+                        <div class="card-content">
+                            <p class="card-description">Banners, flyers, and digital ads that mesmerize.</p>
+                        </div>
+                    </div>
+                    <div class="card fade-in-up">
+                        <div class="card-header">
+                            <div class="card-icon"><i class="fas fa-pen-nib"></i></div>
+                            <h3 class="card-title">Custom Graphics</h3>
+                        </div>
+                        <div class="card-content">
+                            <p class="card-description">Tailored designs to bring your vision to life.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="portfolio">
+                <h2 class="section-title">Portfolio Showcase</h2>
+                <div class="projects-grid">
+                    <div class="card fade-in-up">
+                        <img src="work2.jpg" alt="Yisha's Fragnance design showcasing perfume, deodorants, and luxury sprays" class="project-img">
+                        <div class="card-content">
+                            <h3 class="card-title">Yisha's Fragnance</h3>
+                            <p class="card-description">Built for an outerspace brand that deals in perfume, deodorants, and luxury sprays.</p>
+                        </div>
+                    </div>
+                    <div class="card fade-in-up">
+                        <img src="work3.jpg" alt="Birthday Flier for Godwin Goodluck's birthday" class="project-img">
+                        <div class="card-content">
+                            <h3 class="card-title">Birthday Flier</h3>
+                            <p class="card-description">A Birthday Flier for Godwin Goodluck's birthday on the 20th of February.</p>
+                        </div>
+                    </div>
+                    <div class="card fade-in-up">
+                        <img src="work4.jpg" alt="TS Luxury Clothing fashion design" class="project-img">
+                        <div class="card-content">
+                            <h3 class="card-title">TS Luxury Clothing</h3>
+                            <p class="card-description">TS Luxury is a fashion design brand that offers services related to design.</p>
+                        </div>
+                    </div>
+                    <div class="card fade-in-up">
+                        <img src="work1.jpg" alt="Personal Branding Flier for Moyor Graphics" class="project-img">
+                        <div class="card-content">
+                            <h3 class="card-title">Personal Branding Flier</h3>
+                            <p class="card-description">Moyor has designed an exceptional flier for her personal brand (Moyor Graphics).</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="testimonials">
+                <h2 class="section-title">Client Testimonials</h2>
+                <div class="testimonials-container">
+                    <div class="testimonials-slider" id="testimonialsSlider">
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">"Moyor’s designs took our social media to the next level!"</p>
+                            <p class="testimonial-author">Grace, Fashion Brand Owner</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">"The logo design was sleek and delivered super fast!"</p>
+                            <p class="testimonial-author">Sisco Ask, Startup Founder</p>
+                        </div>
+                        <div class="testimonial-card">
+                            <p class="testimonial-text">"Moyor’s creativity made our event visuals shine!"</p>
+                            <p class="testimonial-author">Miss Aminat, Event Planner</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-controls">
+                        <button class="testimonial-btn" onclick="prevTestimonialIFY()"><i class="fas fa-chevron-left"></i></button>
+                        <button class="testimonial-btn" onclick="nextTestimonialIFY()"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="contact">
+                <h2 class="section-title">Let’s Create Something Extraordinary</h2>
+                <div class="contact-section fade-in-up">
+                    <p class="card-description text-center mb-6">Contact Moyor Graphics for your next design project.</p>
+                    <div class="contact-form" id="contactForm">
+                        <input type="text" class="contact-input" placeholder="Your Name" id="name">
+                        <input type="email" class="contact-input" placeholder="Your Email" id="email">
+                        <textarea class="contact-textarea" placeholder="Your Message" id="message" rows="6"></textarea>
+                        <button class="btn" onclick="sendMessage()">Send Message <i class="fas fa-paper-plane ml-2"></i></button>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://wa.me/+2348146706932" target="_blank" class="social-link" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="mailto:moyorgraphics@gmail.com" class="social-link" title="Gmail"><i class="fas fa-envelope"></i></a>
+                        <a href="tel:+2348146706932" class="social-link" title="Phone"><i class="fas fa-phone"></i></a>
+                        <a href="https://tiktok.com/@moyorgraphics" target="_blank" class="social-link" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://instagram.com/moyorgraphics" target="_blank" class="social-link" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
-  </section>
 
-  <section id="about" class="section about-section">
-    <div class="container mx-auto px-4">
-      <h2 class="text-3xl md:text-4xl font-bold text-glow mb-10 text-center">About Moyor Graphics</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-        <div class="relative flex justify-center">
-          <img src="https://s3.us-east-1.amazonaws.com/web.develop/moyor.jpg" alt="Moyor" class="about-img">
-        </div>
-        <div class="text-gradient space-y-4">
-          <p class="text-base md:text-lg leading-relaxed">Moyor Graphics is a visionary design studio led by Moyor, a creative genius with over a decade of experience using tools like <span class="font-semibold">PixelLab</span> and <span class="font-semibold">Canva</span>.</p>
-          <p class="text-base md:text-lg leading-relaxed">We specialize in crafting breathtaking branding, social media visuals, and digital art that transcend the ordinary, captivating audiences worldwide.</p>
-          <p class="text-base md:text-lg leading-relaxed">Based in Nigeria, Moyor Graphics transforms ideas into holographic masterpieces with a cosmic flair.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    <footer>
+        Built with passion by <a href="https://wa.me/+2348128197651" target="_blank">Sisco Ask</a> | © <span id="footer-year"></span> Moyor Graphics
+    </footer>
 
-  <section id="portfolio" class="section">
-    <div class="container mx-auto px-4">
-      <h2 class="text-3xl md:text-4xl font-bold text-glow mb-10 text-center">Portfolio Showcase</h2>
-      <div class="portfolio-grid">
-        <div class="card">
-          <img src="https://s3.us-east-1.amazonaws.com/web.develop/work2.jpg" alt="Yisha's Fragnance" class="project-img">
-          <div class="p-5">
-            <h3 class="text-lg font-semibold text-gradient mb-2">Yisha's Fragnance</h3>
-            <p class="text-gray-300 text-sm">Built for an outerspace brand that deals in perfume, deodorants, and luxury sprays.</p>
-          </div>
-        </div>
-        <div class="card">
-          <img src="https://s3.us-east-1.amazonaws.com/web.develop/work3.jpg" alt="Birthday Flier" class="project-img">
-          <div class="p-5">
-            <h3 class="text-lg font-semibold text-gradient mb-2">Birthday Flier</h3>
-            <p class="text-gray-300 text-sm">A Birthday Flier for Godwin Goodluck's birthday on the 20th of February.</p>
-          </div>
-        </div>
-        <div class="card">
-          <img src="https://s3.us-east-1.amazonaws.com/web.develop/work4.jpg" alt="TS Luxury Clothing" class="project-img">
-          <div class="p-5">
-            <h3 class="text-lg font-semibold text-gradient mb-2">TS Luxury Clothing</h3>
-            <p class="text-gray-300 text-sm">TS Luxury is a fashion design brand that offers services related to design.</p>
-          </div>
-        </div>
-        <div class="card">
-          <img src="https://s3.us-east-1.amazonaws.com/web.develop/work1.jpg" alt="Personal Branding Flier" class="project-img">
-          <div class="p-5">
-            <h3 class="text-lg font-semibold text-gradient mb-2">Personal Branding Flier</h3>
-            <p class="text-gray-300 text-sm">Moyor has designed an exceptional flier for her personal brand (Moyor Graphics).</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="services" class="section">
-    <div class="container mx-auto px-4">
-      <h2 class="text-3xl md:text-4xl font-bold text-glow mb-10 text-center">Design Services</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div class="card p-5 text-center">
-          <i class="fas fa-paint-brush text-3xl text-gradient mb-3"></i>
-          <h3 class="text-lg font-semibold text-gradient mb-2">Branding</h3>
-          <p class="text-gray-300 text-sm">Logos, business cards, and brand kits with a holographic touch.</p>
-        </div>
-        <div class="card p-5 text-center">
-          <i class="fas fa-image text-3xl text-gradient mb-3"></i>
-          <h3 class="text-lg font-semibold text-gradient mb-2">Social Media Graphics</h3>
-          <p class="text-gray-300 text-sm">Engaging visuals for Instagram, TikTok, and more.</p>
-        </div>
-        <div class="card p-5 text-center">
-          <i class="fas fa-file-image text-3xl text-gradient mb-3"></i>
-          <h3 class="text-lg font-semibold text-gradient mb-2">Digital Designs</h3>
-          <p class="text-gray-300 text-sm">Banners, flyers, and digital ads that mesmerize.</p>
-        </div>
-        <div class="card p-5 text-center">
-          <i class="fas fa-pen-nib text-3xl text-gradient mb-3"></i>
-          <h3 class="text-lg font-semibold text-gradient mb-2">Custom Graphics</h3>
-          <p class="text-gray-300 text-sm">Tailored designs to bring your vision to life.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="testimonials" class="section">
-    <div class="container mx-auto px-4">
-      <h2 class="text-3xl md:text-4xl font-bold text-glow mb-10 text-center">Client Testimonials</h2>
-      <div class="swiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <div class="testimonial-card">
-              <img src="https://s3.us-east-1.amazonaws.com/web.develop/Grace.jpg" alt="Client 1" class="testimonial-img">
-              <p class="text-gray-300 text-sm mb-3">"Moyor’s designs took our social media to the next level!"</p>
-              <p class="text-gradient font-semibold text-sm">Grace , Fashion Brand Owner</p>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="testimonial-card">
-              <img src="https://s3.us-east-1.amazonaws.com/web.develop/pm_1738931741635_cmp.jpg" alt="Client 2" class="testimonial-img">
-              <p class="text-gray-300 text-sm mb-3">"The logo design was sleek and delivered super fast!"</p>
-              <p class="text-gradient font-semibold text-sm">Sisco Ask, Startup Founder</p>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="testimonial-card">
-              <img src="https://s3.us-east-1.amazonaws.com/web.develop/Miss+Aminat.jpg" alt="Client 3" class="testimonial-img">
-              <p class="text-gray-300 text-sm mb-3">"Moyor’s creativity made our event visuals shine!"</p>
-              <p class="text-gradient font-semibold text-sm">Miss Aminat, Event Planner</p>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-pagination"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact" class="section">
-    <div class="container mx-auto px-4">
-      <h2 class="text-3xl md:text-4xl font-bold text-glow mb-10 text-center">Let’s Create Something Extraordinary</h2>
-      <p class="text-base md:text-lg text-gradient text-center mb-6 max-w-lg mx-auto">Contact Moyor Graphics for your next design project.</p>
-      <div class="flex flex-wrap justify-center gap-8">
-        <a href="https://wa.me/+234 814 670 6932" target="_blank" class="social-icon text-2xl md:text-3xl text-gradient" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-        <a href="mailto:moyorgraphics@gmail.com" class="social-icon text-2xl md:text-3xl text-gradient" aria-label="Gmail"><i class="fas fa-envelope"></i></a>
-        <a href="tel:+234 814 670 6932" class="social-icon text-2xl md:text-3xl text-gradient" aria-label="Phone"><i class="fas fa-phone"></i></a>
-        <a href="https://tiktok.com/@moyorgraphics" target="_blank" class="social-icon text-2xl md:text-3xl text-gradient" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-        <a href="https://instagram.com/moyorgraphics" target="_blank" class="social-icon text-2xl md:text-3xl text-gradient" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <p class="text-gradient">© <span id="footer-year"></span> Moyor Graphics. Built by Sisco Ask.</p>
-  </footer>
-
-  <script>
-    // Navigation Toggle
-    const navToggle = document.querySelector('.nav-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-    navToggle.addEventListener('click', () => {
-      navToggle.classList.toggle('active');
-      navMenu.classList.toggle('active');
-    });
-
-    // Smooth Scroll
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-        if (window.innerWidth <= 768) {
-          navToggle.classList.remove('active');
-          navMenu.classList.remove('active');
+    <script>
+        function initializeApp() {
+            createParticles();
+            setupEventListeners();
+            setupTestimonialSlider();
+            document.getElementById('footer-year').textContent = new Date().getFullYear();
         }
-      });
-    });
 
-    // Dynamic Year
-    document.getElementById('footer-year').textContent = new Date().getFullYear();
-
-    // Enhanced Background Animation with Aurora
-    const canvas = document.getElementById('bgCanvas');
-    const ctx = canvas.getContext('2d');
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    const particles = [];
-    class Particle {
-      constructor() { this.reset(); }
-      reset() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 2;
-        this.vy = (Math.random() - 0.5) * 2;
-        this.size = Math.random() * 5 + 2;
-        this.opacity = Math.random() * 0.6 + 0.4;
-        this.color = Math.random() > 0.5 ? '#8B5CF6' : '#34D399';
-        this.glow = Math.random() * 20 + 15;
-        this.twinkleSpeed = Math.random() * 0.05 + 0.02;
-      }
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-        this.opacity = 0.6 + Math.sin(Date.now() * this.twinkleSpeed) * 0.3;
-        if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
-      }
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fillStyle = this.color + `${Math.floor(this.opacity * 255).toString(16).padStart(2, '0')}`;
-        ctx.shadowColor = this.color;
-        ctx.shadowBlur = this.glow;
-        ctx.fill();
-      }
-    }
-    function initParticles() {
-      particles.length = 0;
-      for (let i = 0; i < Math.min(150, Math.floor(window.innerWidth / 10)); i++) {
-        particles.push(new Particle());
-      }
-    }
-    initParticles();
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => { p.update(); p.draw(); });
-      requestAnimationFrame(animate);
-    }
-    animate();
-
-    // Hero 3D Animation (Rotating Torus with Glow)
-    const heroCanvas = document.getElementById('heroCanvas');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ canvas: heroCanvas, alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    camera.position.z = 6;
-
-    const torusGroup = new THREE.Group();
-    const torusCount = 3;
-    for (let i = 0; i < torusCount; i++) {
-      const geometry = new THREE.TorusGeometry(1 + i * 0.5, 0.1, 16, 100);
-      const material = new THREE.MeshBasicMaterial({ color: i % 2 ? 0x8B5CF6 : 0x34D399, wireframe: true });
-      const torus = new THREE.Mesh(geometry, material);
-      torus.rotation.x = Math.PI / 2;
-      torusGroup.add(torus);
-    }
-    scene.add(torusGroup);
-
-    function animateHero() {
-      torusGroup.rotation.y += 0.01;
-      torusGroup.children.forEach((torus, i) => {
-        torus.rotation.z += 0.005 * (i + 1);
-      });
-      renderer.render(scene, camera);
-      requestAnimationFrame(animateHero);
-    }
-    animateHero();
-
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-
-    // Enhanced Swiper for Testimonials with 3D Flip Effect
-    function initializeSwiper() {
-      if (typeof Swiper === 'undefined') {
-        console.error('Swiper library failed to load. Displaying testimonials without slider.');
-        document.querySelectorAll('.swiper-slide').forEach(slide => {
-          slide.style.opacity = '1';
-          slide.style.transform = 'rotateY(0deg) scale(1)';
-        });
-        return;
-      }
-
-      const swiper = new Swiper('.swiper', {
-        slidesPerView: 1,
-        spaceBetween: 20,
-        loop: true,
-        autoplay: { delay: 5000, disableOnInteraction: false },
-        pagination: { el: '.swiper-pagination', clickable: true },
-        navigation: { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' },
-        effect: 'flip',
-        flipEffect: { slideShadows: false },
-        speed: 1000,
-        breakpoints: {
-          640: { slidesPerView: 2, spaceBetween: 15 },
-          1024: { slidesPerView: 3, spaceBetween: 20 }
-        },
-        on: {
-          init: function () {
-            document.querySelectorAll('.swiper-slide').forEach(slide => {
-              slide.classList.add('swiper-slide-visible');
-            });
-          },
-          slideChangeTransitionStart: function () {
-            document.querySelectorAll('.swiper-slide').forEach(slide => {
-              slide.classList.remove('swiper-slide-visible');
-            });
-          },
-          slideChangeTransitionEnd: function () {
-            document.querySelectorAll('.swiper-slide-active').forEach(slide => {
-              slide.classList.add('swiper-slide-visible');
-            });
-            document.querySelectorAll('.swiper-slide-next').forEach(slide => {
-              slide.classList.add('swiper-slide-visible');
-            });
-            document.querySelectorAll('.swiper-slide-prev').forEach(slide => {
-              slide.classList.add('swiper-slide-visible');
-            });
-          }
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = `${Math.random() * 3 + 1}px`;
+                particle.style.height = particle.style.width;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                particlesContainer.appendChild(particle);
+            }
         }
-      });
-    }
 
-    document.addEventListener('DOMContentLoaded', initializeSwiper);
-    window.onload = initializeSwiper;
+        let currentTestimonial = 0;
+        const testimonials = document.querySelectorAll('.testimonial-card');
+        const totalTestimonials = testimonials.length;
 
-    // GSAP Animations
-    window.addEventListener('load', () => {
-      gsap.registerPlugin(ScrollTrigger);
-      gsap.from('.animate-pulse', { opacity: 0, y: 50, duration: 1.5, ease: 'power4.out' });
-      gsap.utils.toArray('.section').forEach(section => {
-        gsap.from(section.children, {
-          opacity: 0,
-          y: 30,
-          duration: 1.2,
-          stagger: 0.2,
-          ease: 'power3.out',
-          scrollTrigger: { trigger: section, start: 'top 85%' }
-        });
-      });
-      gsap.from('.portfolio-grid .card', {
-        opacity: 0,
-        scale: 0.9,
-        duration: 1,
-        stagger: 0.15,
-        ease: 'elastic.out(1, 0.5)',
-        scrollTrigger: { trigger: '.portfolio-grid', start: 'top 85%' }
-      });
-      gsap.from('.testimonial-card', {
-        opacity: 0,
-        y: 20,
-        duration: 1,
-        stagger: 0.2,
-        ease: 'power3.out',
-        scrollTrigger: { trigger: '.swiper', start: 'top 85%' }
-      });
-    });
-  </script>
+        let autoSlide;
+
+        function setupTestimonialSlider() {
+            testimonials[currentTestimonial].style.opacity = '1';
+            autoSlide = setInterval(nextTestimonialIFY, 5000);
+            const slider = document.getElementById('testimonialsSlider');
+            slider.addEventListener('mouseenter', () => clearInterval(autoSlide));
+            slider.addEventListener('mouseleave', () => autoSlide = setInterval(nextTestimonialIFY, 5000));
+        }
+
+        function nextTestimonialIFY() {
+            testimonials[currentTestimonial].style.opacity = '0';
+            currentTestimonial = (currentTestimonial + 1) % totalTestimonials;
+            testimonials[currentTestimonial].style.opacity = '1';
+            document.getElementById('testimonialsSlider').style.transform = `translateX(-${currentTestimonial * 100}%)`;
+        }
+
+        function prevTestimonialIFY() {
+            testimonials[currentTestimonial].style.opacity = '0';
+            currentTestimonial = (currentTestimonial - 1 + totalTestimonials) % totalTestimonials;
+            testimonials[currentTestimonial].style.opacity = '1';
+            document.getElementById('testimonialsSlider').style.transform = `translateX(-${currentTestimonial * 100}%)`;
+        }
+
+        function setupEventListeners() {
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                    item.classList.add('active');
+                    const section = document.getElementById(item.dataset.section);
+                    if (section) {
+                        section.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
+            document.addEventListener('scroll', () => {
+                const elements = document.querySelectorAll('.card, .about-card, .section-title, .contact-section, .testimonial-card');
+                elements.forEach(element => {
+                    const rect = element.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.85 && rect.bottom > 0) {
+                        element.classList.add('fade-in-up');
+                    }
+                });
+            });
+
+            if ('ontouchstart' in window) {
+                document.querySelectorAll('.btn, .social-link, .testimonial-btn').forEach(element => {
+                    element.addEventListener('touchstart', function(e) {
+                        e.stopPropagation();
+                        this.style.transform = 'scale(0.95)';
+                    });
+                    element.addEventListener('touchend', function(e) {
+                        e.stopPropagation();
+                        this.style.transform = '';
+                    });
+                });
+            }
+
+            // Keyboard accessibility for navigation and buttons
+            document.querySelectorAll('.nav-item, .testimonial-btn').forEach(element => {
+                element.setAttribute('tabindex', '0');
+                element.setAttribute('role', 'button');
+                element.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        element.click();
+                    }
+                });
+            });
+        }
+
+        function sendMessage() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            const phoneNumber = '+2348146706932';
+
+            if (name && email && message) {
+                const whatsappMessage = `Hello Moyor, I'm ${name} (${email}). ${message}`;
+                const encodedMessage = encodeURIComponent(whatsappMessage);
+                window.open(`https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodedMessage}`, '_blank');
+                alert(`Thank you, ${name}! Your message has been sent via WhatsApp. Moyor Graphics will get back to you soon!`);
+                document.getElementById('contactForm').reset();
+            } else {
+                alert('Please fill in all fields to send a message.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeApp);
+    </script>
 </body>
 </html>
